@@ -93,10 +93,10 @@ namespace Swaggerator
 
 		private static IEnumerable<Models.Service> GetDiscoveratedServices(Assembly assembly)
 		{
-			IEnumerable<TypeInfo> types;
+			IEnumerable<Type> types;
 			try
 			{
-				types = assembly.DefinedTypes;
+				types = assembly.GetTypes();
 			}
 			catch (ReflectionTypeLoadException)
 			{
@@ -104,12 +104,12 @@ namespace Swaggerator
 				yield break;
 			}
 
-			foreach (TypeInfo ti in types)
+			foreach (Type t in types)
 			{
-				SwaggeratedAttribute da = ti.GetCustomAttribute<SwaggeratedAttribute>();
+                SwaggeratedAttribute da = t.GetCustomAttribute<SwaggeratedAttribute>();
 				if (da != null)
 				{
-					DescriptionAttribute descAttr = ti.GetCustomAttribute<DescriptionAttribute>();
+					DescriptionAttribute descAttr = t.GetCustomAttribute<DescriptionAttribute>();
 					Models.Service service = new Models.Service
 					{
 						path = da.LocalPath,
@@ -125,12 +125,22 @@ namespace Swaggerator
 			Assembly[] allAssm = AppDomain.CurrentDomain.GetAssemblies();
 			foreach (Assembly assembly in allAssm)
 			{
-				foreach (TypeInfo ti in assembly.DefinedTypes)
+			    IEnumerable<Type> types;
+			    try
+			    {
+			        types = assembly.GetTypes();
+			    }
+			    catch (ReflectionTypeLoadException)
+			    {
+			        continue;
+			    }
+
+                foreach (Type t in types)
 				{
-					SwaggeratedAttribute da = ti.GetCustomAttribute<SwaggeratedAttribute>();
+					SwaggeratedAttribute da = t.GetCustomAttribute<SwaggeratedAttribute>();
 					if (da != null && da.LocalPath == servicePath)
 					{
-						return ti.AsType();
+						return t;
 					}
 				}
 			}

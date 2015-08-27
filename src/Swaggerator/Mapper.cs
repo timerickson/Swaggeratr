@@ -86,7 +86,7 @@ namespace Swaggerator
 			Type[] interfaces = serviceType.GetInterfaces();
 			foreach (Type i in interfaces)
 			{
-				Attribute dc = i.GetCustomAttribute(typeof(ServiceContractAttribute));
+				ServiceContractAttribute dc = i.GetCustomAttribute<ServiceContractAttribute>();
 				if (dc != null)
 				{
 					//found a DataContract, now get a service map and inspect the methods for WebGet/WebInvoke

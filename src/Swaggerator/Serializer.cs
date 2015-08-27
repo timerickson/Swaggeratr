@@ -50,7 +50,7 @@ namespace Swaggerator
 			{
 				writer.WriteStartObject();
 				writer.WritePropertyName("apiVersion");
-				writer.WriteValue(serviceType.Assembly.GetName().Version.ToString());
+				writer.WriteValue((serviceType.Assembly.GetName().Version ?? new Version()).ToString());
 				writer.WritePropertyName("swaggerVersion");
 				writer.WriteValue(Globals.SWAGGER_VERSION);
 				writer.WritePropertyName("basePath");

@@ -81,8 +81,48 @@ namespace Swaggerator
 				? string.Format(resultFormat, typeName, defaultNote)
 				: string.Format(resultFormat, typeName, typeNote);
 		}
-		
-		public static T1 GetCustomAttributeValue<T1, T2>(MethodInfo method, string propertyName)
+
+        public static TAttr GetCustomAttribute<TAttr>(this Type t)
+        {
+            return (TAttr)t.GetCustomAttributes(typeof(TAttr), true).FirstOrDefault(x => x is TAttr);
+        }
+
+	    public static T GetCustomAttribute<T>(this MethodInfo method)
+	    {
+            return (T)method.GetCustomAttributes(typeof(T), true).FirstOrDefault();
+        }
+
+        public static IEnumerable<TAttr> GetCustomAttributes<TAttr>(this MethodInfo mi)
+        {
+            return mi.GetCustomAttributes(typeof(TAttr), true).Where(o => o is TAttr).Cast<TAttr>();
+        }
+
+        public static IEnumerable<TAttr> GetCustomAttributes<TAttr>(this Type t)
+        {
+            return t.GetCustomAttributes(typeof(TAttr), true).Where(o => o is TAttr).Cast<TAttr>();
+        }
+
+        public static IEnumerable<TAttr> GetCustomAttributes<TAttr>(this PropertyInfo pi)
+        {
+            return pi.GetCustomAttributes(typeof(TAttr), true).Where(o => o is TAttr).Cast<TAttr>();
+        }
+
+        public static TAttr GetCustomAttribute<TAttr>(this PropertyInfo pi)
+        {
+            return (TAttr) pi.GetCustomAttributes(typeof(TAttr), true).FirstOrDefault(o => o is TAttr);
+        }
+
+        public static IEnumerable<TAttr> GetCustomAttributes<TAttr>(this ParameterInfo pi)
+        {
+            return pi.GetCustomAttributes(typeof(TAttr), true).Where(o => o is TAttr).Cast<TAttr>();
+        }
+
+        public static TAttr GetCustomAttribute<TAttr>(this ParameterInfo pi)
+        {
+            return (TAttr)pi.GetCustomAttributes(typeof(TAttr), true).FirstOrDefault(o => o is TAttr);
+        }
+
+        public static T1 GetCustomAttributeValue<T1, T2>(MethodInfo method, string propertyName)
 			where T1 : class
 			where T2 : Attribute
 		{
@@ -92,7 +132,7 @@ namespace Swaggerator
 			PropertyInfo prop = typeof(T2).GetProperty(propertyName);
 			if (prop == null || prop.PropertyType != typeof(T1)) { return null; }
 
-			return prop.GetValue(attr) as T1;
+			return prop.GetValue(attr, new object[]{}) as T1;
 		}
 
 		internal static string MapElementType(Type type, Stack<Type> typeStack)
