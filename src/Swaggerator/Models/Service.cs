@@ -18,15 +18,18 @@
  */
 
 using System.Runtime.Serialization;
+using System;
 
 namespace Swaggerator.Models
 {
 	[DataContract]
-	internal class Service
+	public class Service
 	{
 		[DataMember]
 		public string path { get; set; }
 		[DataMember(EmitDefaultValue = false)]
 		public string description { get; set; }
+
+		public Type serviceType;
 	}
 }

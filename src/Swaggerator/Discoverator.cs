@@ -55,12 +55,17 @@ namespace Swaggerator
 		internal readonly IEnumerable<string> HiddenTags;
 		private readonly Serializer _Serializer;
 
+		public Models.ServiceList GetServiceList()
+		{
+			return GetServiceList (AppDomain.CurrentDomain);
+		}
+
 		public Stream GetServices()
 		{
 			return GetServices(AppDomain.CurrentDomain);
 		}
 
-		public Stream GetServices(AppDomain searchDomain)
+		public Models.ServiceList GetServiceList(AppDomain searchDomain)
 		{
 			Models.ServiceList serviceList = new Models.ServiceList
 			{
@@ -85,6 +90,13 @@ namespace Swaggerator
 					serviceList.apis.AddRange(services);
 				}
 			}
+
+			return serviceList;
+		}
+
+		public Stream GetServices(AppDomain searchDomain)
+		{
+			var serviceList = GetServiceList (searchDomain);
 
 			MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(serviceList)));
 
@@ -136,11 +148,14 @@ namespace Swaggerator
 			    }
 
                 foreach (Type t in types)
+					
 				{
 					SwaggeratedAttribute da = t.GetCustomAttribute<SwaggeratedAttribute>();
-					if (da != null && da.LocalPath == servicePath)
-					{
-						return t;
+					if (da != null) {
+						if (da != null && da.LocalPath == servicePath)
+						{
+							return t;
+						}
 					}
 				}
 			}
@@ -148,6 +163,7 @@ namespace Swaggerator
 		}
 
 		public Stream GetServiceDetails(string servicePath)
+
 		{
 			return GetServiceDetails(AppDomain.CurrentDomain, HttpContext.Current.Request.Url, servicePath);
 		}
@@ -155,7 +171,11 @@ namespace Swaggerator
 		public Stream GetServiceDetails(AppDomain domain, Uri baseUri, string servicePath)
 		{
 			Type serviceType = FindServiceTypeByPath(string.Format("/{0}", servicePath));
+			return GetServiceDetails (serviceType, baseUri, servicePath);
+		}
 
+		public Stream GetServiceDetails(Type serviceType, Uri baseUri, string servicePath)
+		{
 			Stack<Type> typeStack = new Stack<Type>();
 
 			string api = _Serializer.WriteApi(baseUri, string.Format("/{0}", servicePath), serviceType, typeStack);

@@ -4,9 +4,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{AB5D5EFD-BF0C-4287-8371-C5BFC7CB7FC3}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -115,7 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Swaggerator\Swaggerator.csproj">
-      <Project>{0ad6efbc-412f-4c0e-8e0a-0faf28151b55}</Project>
+      <Project>{0AD6EFBC-412F-4C0E-8E0A-0FAF28151B55}</Project>
       <Name>Swaggerator</Name>
     </ProjectReference>
   </ItemGroup>
@@ -143,6 +140,11 @@
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
+    <MonoDevelop>
+      <Properties>
+        <XspParameters Port="8080" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="True" />
+      </Properties>
+    </MonoDevelop>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

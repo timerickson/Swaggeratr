@@ -1,0 +1,73 @@
+﻿{
+    "groups": {
+        "public": {
+            "binPath": "Y:\\source\\mobileapi_cd\\Application\\Nordstrom.ExternalServices\\bin",
+            "baseUri": "https://public.dev.nordstrom.net",
+            "services": {
+                "/status": {
+                    "serviceClass": "Nordstrom.ExternalServices.Wcf.Common.Services.HealthCheckService, Nordstrom.ExternalServices.Wcf.Common",
+                    "description": "ExternalServices Status Basic"
+                },
+                "/v1/StoreService": {
+                    "serviceClass": "Nordstrom.ExternalServices.StoreService, Nordstrom.ExternalServices",
+                    "description": "Store service"
+                },
+                "/v1/ConfigurationService": {
+                    "serviceClass": "Nordstrom.ExternalServices.ConfigurationService, Nordstrom.ExternalServices",
+                    "description": "Configuration Service"
+                },
+                "/v1/StoreService": {
+                    "serviceClass": "Nordstrom.ExternalServices.StoreService, Nordstrom.ExternalServices",
+                    "description": "Store service"
+                },
+                "/v1/RecommendationService": {
+                    "serviceClass": "Nordstrom.ExternalServices.RecommendationService, Nordstrom.ExternalServices",
+                    "description": "Recommendation Service"
+                },
+                "/v1/ReviewService": {
+                    "serviceClass": "Nordstrom.ExternalServices.ReviewService, Nordstrom.ExternalServices",
+                    "description": "Review Service"
+                },
+                "/v1/messages": {
+                    "serviceClass": "Nordstrom.ExternalServices.MessagesService, Nordstrom.ExternalServices",
+                    "description": "Message Service"
+                },
+                "/v1/CategoryService": {
+                    "disabled": true,
+                    "serviceClass": "Nordstrom.ExternalServices.CategoryService, Nordstrom.ExternalServices",
+                    "description": "Category Service"
+                },
+                "/v1/StyleService": {
+                    "disabled": true,
+                    "serviceClass": "Nordstrom.ExternalServices.StyleService, Nordstrom.ExternalServices",
+                    "description": "Style Service"
+                },
+                "/v1.1/StyleService": {
+                    "disabled": true,
+                    "serviceClass": "Nordstrom.ExternalServices.V1_1.StyleService, Nordstrom.ExternalServices",
+                    "description": "Style Service v1.1"
+                },
+                "/v1.2/StyleService": {
+                    "disabled": true,
+                    "serviceClass": "Nordstrom.ExternalServices.V1_2.StyleService, Nordstrom.ExternalServices",
+                    "description": "Style Service v1.2"
+                }
+            }
+        },
+        "auth": {
+            "binPath": "Y:\\source\\mobileapi_cd\\Application\\Nordstrom.AuthorizationServices\\bin",
+            "baseUri": "https://auth.dev.nordstrom.net",
+            "services": {
+                "/status": {
+                    "serviceClass": "Nordstrom.ExternalServices.Wcf.Common.Services.HealthCheckService, Nordstrom.ExternalServices.Wcf.Common",
+                    "description": "ExternalServices Status Basic"
+                },
+                "": {
+                    "serviceClass": "",
+                    "description": "",
+                    "disabled": true
+                }
+            }
+        }
+    }
+}

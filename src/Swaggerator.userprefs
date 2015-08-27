@@ -1,0 +1,40 @@
+﻿<Properties StartupItem="Swaggerator.CL/Swaggerator.CL.csproj">
+  <DisabledProjects>
+    <String>SampleService/SampleService.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Swaggerator/Helpers.cs">
+    <Files>
+      <File FileName="Swaggerator.CL/Program.cs" Line="17" Column="3" />
+      <File FileName="Swaggerator/Serializer.cs" Line="26" Column="17" />
+      <File FileName="Swaggerator/packages.config" Line="3" Column="1" />
+      <File FileName="Swaggerator.CL/packages.config" Line="3" Column="1" />
+      <File FileName="Swaggerator/Helpers.cs" Line="113" Column="41" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Swaggerator" expanded="True">
+            <Node name="Swaggerator" expanded="True">
+              <Node name="References" expanded="True">
+                <Node name="From Packages" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="Swaggerator.CL" expanded="True">
+              <Node name="References" expanded="True">
+                <Node name="From Packages" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

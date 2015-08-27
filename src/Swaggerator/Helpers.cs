@@ -68,6 +68,7 @@ namespace Swaggerator
 			//it's a complex type, so we'll need to map it later
 			if (!typeMap.Contains(type)) { typeMap.Push(type); }
 			return type.FullName;
+
 		}
 
 		private static string BuildTypeString(string typeName, string defaultNote = null, string typeNote = null)
@@ -89,7 +90,9 @@ namespace Swaggerator
 
 	    public static T GetCustomAttribute<T>(this MethodInfo method)
 	    {
-            return (T)method.GetCustomAttributes(typeof(T), true).FirstOrDefault();
+			
+			var attrs = method.GetCustomAttributes (typeof(T), true).ToList();
+            return (T)attrs.FirstOrDefault();
         }
 
         public static IEnumerable<TAttr> GetCustomAttributes<TAttr>(this MethodInfo mi)

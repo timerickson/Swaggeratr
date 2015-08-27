@@ -24,7 +24,7 @@ using System.Runtime.Serialization;
 namespace Swaggerator.Models
 {
 	[DataContract]
-	internal class ServiceList
+	public class ServiceList
 	{
 		public ServiceList()
 		{
