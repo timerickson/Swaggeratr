@@ -1,7 +1,7 @@
 ﻿{
     "groups": {
         "public": {
-            "binPath": "Y:\\source\\mobileapi_cd\\Application\\Nordstrom.ExternalServices\\bin",
+            "binPath": "../../../../../mobileapi_cd/Application/Nordstrom.ExternalServices/bin",
             "baseUri": "https://public.dev.nordstrom.net",
             "services": {
                 "/status": {
@@ -55,7 +55,7 @@
             }
         },
         "auth": {
-            "binPath": "Y:\\source\\mobileapi_cd\\Application\\Nordstrom.AuthorizationServices\\bin",
+            "binPath": "../../../../../mobileapi_cd/Application/Nordstrom.AuthorizationServices/bin",
             "baseUri": "https://auth.dev.nordstrom.net",
             "services": {
                 "/status": {

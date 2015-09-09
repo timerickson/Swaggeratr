@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using Swaggerator.Models;
+using Newtonsoft.Json;
 
 namespace Swaggerator.CL
 {
@@ -19,8 +20,8 @@ namespace Swaggerator.CL
 
         public void Load()
         {
-            var application = @"\\psf\home\source\mobileapi_cd\Application\";
-            var binPath = Path.Combine(application, "Nordstrom.ExternalServices\\bin");
+            var application = @"../../../../../mobileapi_cd/Application/";
+            var binPath = Path.Combine(application, "Nordstrom.ExternalServices/bin");
             AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs rea) =>
             {
                 Console.WriteLine("AssemblyResolve: " + rea.Name);
@@ -31,32 +32,48 @@ namespace Swaggerator.CL
                     var file = Path.Combine(binPath, name + ".dll");
                     if (File.Exists(file))
                     {
-                        Console.WriteLine("AssemblyResolve: FOUND");
+                        Console.WriteLine("AssemblyResolve: FOUND: " + file);
                         return Assembly.Load(File.ReadAllBytes(Path.Combine(binPath, name + ".dll")));
                     }
-                    Console.WriteLine("AssemblyResolve: FileNotFound");
+                    Console.WriteLine("AssemblyResolve: FileNotFound: " + file);
                 }
                 Console.WriteLine("AssemblyResolve: MISS");
                 return null;
             };
 
             var discoverator = new Discoverator();
-            //			var serviceList = discoverator.GetServiceList();
             var serviceList = GetServiceList();
             var baseUri = new Uri(_info.BaseUri, UriKind.Absolute);
+            if (Directory.Exists(_groupName))
+            {
+                Directory.Delete(_groupName, true);
+            }
+            Directory.CreateDirectory(_groupName);
             foreach (var service in serviceList.apis)
             {
-                var path = service.path;
-                if (path.StartsWith("/"))
+                var servicePath = service.path;
+                if (servicePath.StartsWith("/"))
                 {
-                    path = path.Substring(1);
+                    servicePath = servicePath.Substring(1);
                 }
-                var serviceJson = discoverator.GetServiceDetails(service.serviceType, baseUri, path);
-                path = path.Replace('/', '-');
-                File.WriteAllText(_groupName + "-" + path + ".json", ReadStream(serviceJson));
+                var serviceJson = discoverator.GetServiceDetails(service.serviceType, baseUri, servicePath);
+                var servicePathParts = servicePath.Split('/');
+                for (var p = 0; p < (servicePathParts.Length - 1); p++)
+                {
+                    var pathParts = new string[p+3];
+                    pathParts[0] = _groupName;
+                    Array.Copy(servicePathParts, 0, pathParts, 1, p+1);
+                    var subPath = string.Join("/", pathParts);
+                    if (!Directory.Exists(subPath))
+                    {
+                        Directory.CreateDirectory(subPath);
+                    }
+                }
+                File.WriteAllText(Path.Combine(_groupName, servicePath + ".swagger"), ReadStream(serviceJson));
             }
-            var servicesJson = discoverator.GetServices();
-            File.WriteAllText(_groupName + ".json", ReadStream(servicesJson));
+            //var servicesJson = discoverator.GetServices();
+            var servicesJson = JsonConvert.SerializeObject(serviceList);
+            File.WriteAllText(_groupName + ".swagger", servicesJson);
         }
 
         private static string ReadStream(Stream s)
